@@ -21,10 +21,18 @@ if %errorlevel% neq 0 (
 :: 1. Free port 3000 if occupied
 node scripts/free-port.mjs
 
-:: 2. Check if build exists, build if needed
-if not exist ".next\" (
+:: 2. Check if valid production build exists (requires .next\BUILD_ID)
+if not exist ".next\BUILD_ID" (
+    echo [*] Production build not found or outdated.
     echo [*] Generating optimized production build...
     call npm run build
+    if errorlevel 1 (
+        color 0C
+        echo.
+        echo [ERROR] Production build failed! Please check errors above.
+        pause
+        exit /b 1
+    )
 )
 
 echo.
