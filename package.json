@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "node scripts/seed.mjs"
+    "db:seed": "node scripts/seed.mjs",
+    "test:qa": "node scripts/qa-test-suite.mjs",
+    "test": "node scripts/qa-test-suite.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
