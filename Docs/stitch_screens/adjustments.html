@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary":"#00363e","primary-fixed-dim":"#2fd9f4","surface-dim":"#131314","primary-fixed":"#a2eeff","on-secondary-container":"#00452e","surface-tint":"#2fd9f4","on-secondary":"#003825","on-primary-container":"#005763","outline-variant":"#3c494c","secondary-fixed":"#68fcbf","on-surface":"#e5e2e3","secondary-container":"#00bd85","error":"#ffb4ab","on-secondary-fixed":"#002114","on-secondary-fixed-variant":"#005137","on-primary-fixed":"#001f25","on-tertiary-container":"#93262b","surface":"#131314","on-primary-fixed-variant":"#004e5a","inverse-primary":"#006877","surface-variant":"#353436","primary-container":"#22d3ee","surface-container-lowest":"#0e0e0f","surface-container-highest":"#353436","on-surface-variant":"#bbc9cd","secondary-fixed-dim":"#45dfa4","tertiary-fixed":"#ffdad8","tertiary-fixed-dim":"#ffb3b0","tertiary-container":"#ffaba8","on-tertiary-fixed":"#410006","surface-bright":"#3a393a","on-tertiary-fixed-variant":"#881d24","error-container":"#93000a","inverse-on-surface":"#313031","outline":"#859397","surface-container-low":"#1c1b1c","on-background":"#e5e2e3","on-tertiary":"#670211","on-error-container":"#ffdad6","primary":"#8aebff","background":"#131314","on-error":"#690005","inverse-surface":"#e5e2e3","secondary":"#45dfa4","surface-container-high":"#2a2a2b","tertiary":"#ffd2d0","surface-container":"#201f20"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"space-xs":"0.25rem","gutter":"1rem","margin":"1rem","space-md":"0.75rem","space-xl":"1.5rem","space-sm":"0.5rem","gutter-desktop":"1.5rem","space-lg":"1rem","margin-desktop":"2rem"},fontFamily:{"headline-md":["Inter"],"label-sm":["Inter"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"headline-lg":["Inter"],"code-lg":["JetBrains Mono"],"headline-sm":["Inter"],"body-sm":["Inter"],"label-md":["Inter"],"code-md":["JetBrains Mono"],"headline-lg-mobile":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","fontWeight":"500"}],"code-sm":["11px",{"lineHeight":"14px","letterSpacing":"0em","fontWeight":"500"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"600"}],"code-lg":["20px",{"lineHeight":"26px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"code-md":["13px",{"lineHeight":"18px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm"><img alt="StockSense Icon" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VliwPHZzy6_gSpbf_ooLpBZrI0P_JYEnZL46CbLl-5CYGGZ2UK_OucfTFQaCvdc1o911wsjuru2bkDJLv8QsVBe6qLfG50DPvTC3y4KfJ-BuFOth0-JmLg5OPK2swcoQuYgjq7XXBOKJgkIAJQrzh-PVgDyPU5hAubyb2Jm2IlmQKJvyF0FFTDaKvvKhH76bi2jOVRvh2I4_VHnwCRL85Rfnbif4meH_x8UjpU9RewqWqiKL-c7sGD408h"/><span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">StockSense</span></div><span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">v2.4</span></div><div class="px-space-md py-space-sm"><span class="font-code-sm text-code-sm text-outline uppercase tracking-wider px-space-sm">Operations</span></div><nav class="flex flex-col gap-0.5 px-space-xs" data-active-classes="bg-surface-container text-primary-container font-medium border-l-2 border-primary-container"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#">Dashboard</a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="products" href="#">Products</a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="receipts" href="#">Receipts</a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="deliveries" href="#">Deliveries</a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="transfers" href="#">Transfers</a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg transition-colors bg-surface-container text-primary-container font-medium border-l-2 border-primary-container" data-path="adjustments" href="#">Adjustments</a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="ledger" href="#">Ledger</a><div class="my-space-xs border-t border-outline-variant/20"></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#">Settings</a></nav></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-low"><div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer"><div class="flex items-center gap-space-sm min-w-0"><div class="relative flex-shrink-0"><div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[16px]">person</span></div><span class="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-low"></span></div><div class="min-w-0 flex-1"><div class="font-label-md text-label-md text-on-surface truncate font-medium">Marcus Vance</div><div class="font-code-sm text-code-sm text-outline truncate">WH-01 • Austin Hub</div></div></div><span class="material-symbols-outlined text-outline-variant text-[16px]">unfold_more</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant/30 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm font-label-md text-label-md"><span class="text-outline">Warehouses</span><span class="text-outline-variant">/</span><span class="text-on-surface font-semibold">Austin Central Hub (WH-01)</span></div><div class="h-4 w-[1px] bg-outline-variant/40 hidden sm:block"></div><div class="hidden sm:flex items-center gap-space-sm px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/30"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span><span class="font-code-sm text-code-sm text-secondary font-medium">Live</span><span class="text-outline-variant">•</span><span class="font-code-sm text-code-sm text-outline">Synced 2s ago</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm px-space-md py-1 bg-surface-container-low border border-outline-variant/30 rounded-lg text-outline font-code-sm text-code-sm hover:border-outline transition-colors cursor-pointer"><span class="material-symbols-outlined text-[16px] text-outline">search</span><span class="hidden md:inline">Search SKU, Bay, Batch...</span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/40 text-on-surface-variant font-code-sm text-code-sm">Ctrl+K</kbd></div><div class="flex items-center gap-space-xs"><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span></button></div><div class="h-5 w-[1px] bg-outline-variant/30 mx-1"></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-14 px-margin-desktop py-space-xl bg-surface-container-lowest min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-header Breadcrumb and Workflow Context Bar -->
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm font-label-md text-label-md">
+<a class="flex items-center gap-1 text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Adjustments</span>
+</a>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface-variant font-medium">Cycle Count Reconciliation</span>
+</div>
+<!-- Right Operational Pill -->
+<div class="flex items-center gap-space-sm px-space-md py-1 rounded bg-surface-container border border-outline-variant/30 text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-code-sm text-code-sm text-secondary font-medium">Active Cycle Count</span>
+</div>
+<span class="text-outline-variant font-code-sm">•</span>
+<span class="font-code-sm text-code-sm text-outline">Zone B Priority Audit</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[13px] mr-1">verified</span>
+          Secured
+        </span>
+</div>
+</div>
+<!-- Title & Action Subtitle -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm mt-1">
+<div class="flex items-center gap-space-md">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">New Stock Adjustment</h1>
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/40">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant uppercase tracking-wider font-semibold">Draft #ADJ-00384</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm text-outline font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span>Reconciliation Session #994-A</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-outline max-w-3xl">
+      Reconcile discrepancies between system ledger records and physical warehouse shelf counts. Adjustments immediately recalculate inventory valuation and create immutable stock ledger audit entries.
+    </p>
+</div>
+<!-- Form Layout: Centered Master Control Sheet with Telemetry Rail -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full">
+<!-- Main Adjuster Column (8 Cols) -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<!-- Card Container -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/30 p-space-lg shadow-sm flex flex-col gap-space-xl">
+<!-- SECTION 1: Product / SKU Field -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">01 / Stock Item Selection</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-md text-label-md text-outline">Target SKU</span>
+</div>
+<button class="group flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-primary-container text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[15px] text-outline group-hover:text-primary transition-colors">sync_alt</span>
+<span>Change SKU</span>
+<kbd class="ml-1 px-1.5 py-0.2 rounded bg-surface-container-high border border-outline-variant/40 text-outline text-[10px] font-code-sm">⌘K</kbd>
+</button>
+</div>
+<!-- Product Detailed Snapshot Card -->
+<div class="p-space-md rounded-lg bg-surface-container border border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high border border-outline-variant/40 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[24px]">precision_manufacturing</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Precision Stepper Motor NEMA 17 0.9°</h2>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40 text-primary font-medium tracking-wide">SKU-5520-E</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-secondary-container/10 border border-secondary-container/30 text-secondary">ACTIVE</span>
+</div>
+<div class="font-body-sm text-body-sm text-outline mt-1 truncate">
+                  48mm Body, 2A Bipolar 4-wire with D-shaft • Unit: <span class="text-on-surface-variant font-medium">pcs</span> • Category: <span class="text-on-surface-variant font-medium">Electronics / Actuators</span>
+</div>
+</div>
+</div>
+<!-- Meta metrics -->
+<div class="flex md:flex-col items-end justify-between border-t md:border-t-0 md:border-l border-outline-variant/20 pt-space-xs md:pt-0 md:pl-space-md flex-shrink-0 gap-1">
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-outline">
+<span>Value:</span>
+<span class="text-on-surface font-medium font-code-sm">$34.00/unit</span>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-outline">
+<span>Audit Sync:</span>
+<span class="text-on-surface-variant font-code-sm">18d ago</span>
+</div>
+</div>
+</div>
+<!-- Facility Stock Snapshot Pill Strip -->
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="px-space-md py-space-xs rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Facility Balance</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">34 pcs</span>
+</div>
+<div class="px-space-md py-space-xs rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Carrying Value</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">$1,156.00</span>
+</div>
+<div class="px-space-md py-space-xs rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Reorder Min</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant font-medium">10 pcs</span>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Physical Location (Select) -->
+<div class="flex flex-col gap-space-sm pt-space-sm border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">02 / Verified Bay Location</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-md text-label-md text-outline">Coordinates</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+              RFID Beacon Detected
+            </span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container border border-outline-variant/30 flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[20px]">warehouse</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm">
+<span class="font-body-md text-body-md text-on-surface font-medium">WH-01 › Zone A › Rack 04 › Bay A1</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.2 rounded bg-surface-container-high border border-outline-variant/40 text-primary-container font-medium">SEC-04-A1</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate">Electronics Secure Storage Bin 03 • Barcode: LOC-A-04-A1</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<span class="font-code-sm text-code-sm text-outline-variant">Locked: Bay 04</span>
+<button class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm border border-outline-variant/40 transition-colors">
+                Verify Bin
+              </button>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Two-Column Quantity Reconciliation & Computed Delta (Core Engine) -->
+<div class="flex flex-col gap-space-md pt-space-sm border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">03 / Quantity Reconciliation</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-md text-label-md text-outline">Physical Discrepancy Compute</span>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Dual-Key Count Enabled</span>
+</div>
+<!-- Comparison Two-Box Grid -->
+<div class="grid grid-cols-1 md:grid-cols-11 gap-space-md items-center">
+<!-- Left Box: System Ledger Value -->
+<div class="md:col-span-5 p-space-lg rounded-lg bg-surface-container border border-outline-variant/30 flex flex-col justify-between h-full">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/20">
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Current Recorded</span>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant border border-outline-variant/30">System Ledger</span>
+</div>
+<div class="my-space-md flex items-baseline justify-between">
+<div class="flex items-baseline gap-space-sm">
+<span class="font-code-lg text-[40px] leading-none text-on-surface font-bold tracking-tight">34</span>
+<span class="font-code-md text-code-md text-outline">pcs</span>
+</div>
+<div class="text-right">
+<div class="font-code-sm text-code-sm text-on-surface-variant font-medium">$1,156.00</div>
+<div class="font-label-sm text-label-sm text-outline">Ledger Balance</div>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between text-outline">
+<span class="font-code-sm text-[11px] truncate">Ref: PO-93410 (Oct 14, 2024)</span>
+<span class="font-code-sm text-[11px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+                  Locked v2.4
+                </span>
+</div>
+</div>
+<!-- Center Comparison Icon -->
+<div class="md:col-span-1 flex items-center justify-center">
+<div class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/40 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+</div>
+</div>
+<!-- Right Box: Physical Counted Quantity (Editable Input) -->
+<div class="md:col-span-5 p-space-lg rounded-lg bg-surface-container border-2 border-primary-container/40 hover:border-primary-container transition-colors flex flex-col justify-between h-full">
+<div class="flex items-center justify-between pb-space-sm border-b border-outline-variant/20">
+<div class="flex items-center gap-1.5">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold uppercase tracking-wider">Physical Counted</span>
+<span class="text-error font-bold">*</span>
+</div>
+<span class="font-code-sm text-code-sm px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container border border-primary-container/30">Manual Verify</span>
+</div>
+<!-- Input Controller with Quick Stepper -->
+<div class="my-space-md flex items-center justify-between gap-space-md">
+<div class="relative flex-1 flex items-baseline">
+<input class="w-full bg-transparent font-code-lg text-[40px] leading-none text-on-surface font-bold focus:outline-none focus:ring-0 tracking-tight" id="countedQtyInput" max="999" min="0" type="number" value="31"/>
+<span class="font-code-md text-code-md text-outline ml-2">pcs</span>
+</div>
+<!-- Stepper buttons -->
+<div class="flex flex-col gap-1">
+<button class="w-7 h-7 rounded bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-on-surface hover:bg-surface-container-highest hover:text-primary transition-colors" id="btnIncrement" type="button">
+<span class="material-symbols-outlined text-[16px]">expand_less</span>
+</button>
+<button class="w-7 h-7 rounded bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-on-surface hover:bg-surface-container-highest hover:text-primary transition-colors" id="btnDecrement" type="button">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="pt-space-sm border-t border-outline-variant/20 flex items-center justify-between text-outline">
+<span class="font-code-sm text-[11px] text-on-surface-variant">Verified by Barcode Scanner #04</span>
+<span class="font-code-sm text-[11px] text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  Live Ready
+                </span>
+</div>
+</div>
+</div>
+<!-- COMPUTED DELTA LINE (Crucial visual trust element) -->
+<div class="p-space-md rounded-lg bg-[#2a1515] border border-[#7f1d1d] flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all" id="deltaCard">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-[#3d1919] border border-[#991b1b] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#F87171] text-[22px]" id="deltaIcon">trending_down</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-lg text-code-lg text-[#F87171] font-bold tracking-tight" id="deltaValue">Δ -3 pcs</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-[#451a1a] text-[#F87171] border border-[#991b1b] font-medium" id="deltaBadge">Discrepancy Detected — Ledger Write-Down</span>
+</div>
+<div class="font-body-sm text-body-sm text-[#ffaba8] mt-0.5" id="deltaStatusText">
+                  Variance: <span class="font-code-sm font-semibold">-8.8% Deficit</span> • Book Loss: <span class="font-code-sm font-semibold">-$102.00</span> at standard carrying cost.
+                </div>
+</div>
+</div>
+<!-- Secondary toggle / preview mode (demo feedback) -->
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-outline hidden lg:inline">Quick Test:</span>
+<button class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant/40 hover:border-secondary text-outline hover:text-secondary font-code-sm text-code-sm transition-colors" id="btnSimulateSurplus" title="Preview Surplus scenario" type="button">
+                Preview +2 Surplus
+              </button>
+<button class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant/40 hover:border-error text-on-surface font-code-sm text-code-sm transition-colors" id="btnResetDeficit" title="Reset to requested -3 Deficit" type="button">
+                Reset -3 Loss
+              </button>
+</div>
+</div>
+</div>
+<!-- SECTION 4: Adjustment Reason & Category -->
+<div class="flex flex-col gap-space-md pt-space-sm border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">04 / Discrepancy Attribution</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-md text-label-md text-outline">Root Cause &amp; Documentation</span>
+</div>
+<span class="font-code-sm text-code-sm text-error font-medium">* Required for Audit Trail</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Reason Category Dropdown -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium flex items-center justify-between" for="reasonCategory">
+<span>Reason Category</span>
+<span class="font-code-sm text-code-sm text-outline">GL Acc: 5020-SCRAP</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container border border-outline-variant/40 text-on-surface rounded-lg px-space-md py-2.5 font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container focus:outline-none appearance-none cursor-pointer" id="reasonCategory">
+<option selected="" value="damage">Physical Damage / Dropped in Transit</option>
+<option value="cycle_variance">Cycle Count Variance / Unreconciled</option>
+<option value="handling_scrap">Damaged in Handling / Staging</option>
+<option value="expired_defective">Expired / Defective Batch</option>
+<option value="misplaced_found">Misplaced &amp; Found elsewhere</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-space-md pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- QC Ticket / Incident Attachment Field -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium flex items-center justify-between">
+<span>Incident Reference / Document</span>
+<span class="font-code-sm text-code-sm text-secondary">Verified Link</span>
+</label>
+<div class="flex items-center gap-space-sm px-space-md py-2 rounded-lg bg-surface-container border border-outline-variant/40">
+<span class="material-symbols-outlined text-primary text-[18px]">attachment</span>
+<span class="font-code-sm text-code-sm text-on-surface flex-1 truncate">QC-Incident-9921.pdf</span>
+<span class="font-code-sm text-[11px] px-1.5 py-0.5 rounded bg-surface-container-high text-outline">2.4 MB</span>
+<button class="text-outline hover:text-on-surface transition-colors" title="Change Attachment" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Reason Details / Notes Textarea -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium" for="adjustmentNotes">Root Cause Inspection Notes</label>
+<span class="font-code-sm text-code-sm text-outline">128 / 500 chars</span>
+</div>
+<textarea class="w-full bg-surface-container border border-outline-variant/40 text-on-surface rounded-lg p-space-md font-body-md text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container focus:outline-none placeholder:text-outline resize-none" id="adjustmentNotes" rows="3">Found 3 units damaged at back of Bay A1; casing fractured during forklift pallet repositioning. Scrapped per QC ticket #QC-9921.</textarea>
+</div>
+</div>
+<!-- SECTION 5: Ledger Audit Commit Preview (Screen 2/4/6 parity) -->
+<div class="flex flex-col gap-space-sm pt-space-sm border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">05 / Audit Ledger Preview</span>
+<span class="text-outline-variant">•</span>
+<span class="font-code-sm text-code-sm text-outline">Pre-Commit Hash: 0x8f2a..c49</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary font-medium">Immutable StockSense Ledger v2.4</span>
+</div>
+<div class="overflow-x-auto rounded-lg bg-surface-container border border-outline-variant/30">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 text-outline font-label-sm text-label-sm">
+<th class="py-2.5 px-space-md font-medium">Target SKU</th>
+<th class="py-2.5 px-space-md font-medium text-right">Old Ledger</th>
+<th class="py-2.5 px-space-md font-medium text-right">Write-Down Delta</th>
+<th class="py-2.5 px-space-md font-medium text-right">New Ledger Balance</th>
+<th class="py-2.5 px-space-md font-medium">Ledger Action</th>
+</tr>
+</thead>
+<tbody class="font-code-sm text-code-sm divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="py-3 px-space-md text-on-surface font-medium">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>SKU-5520-E</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right text-on-surface-variant">34 pcs</td>
+<td class="py-3 px-space-md text-right text-error font-semibold">-3 pcs</td>
+<td class="py-3 px-space-md text-right text-primary-container font-bold">31 pcs</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-error-container/20 border border-error-container/40 text-error font-medium text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                      LOSS WRITE-DOWN • Stock Re-evaluation
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- SECTION 6: Bottom Action Bar (Dual-Action Controls) -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-md border-t border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface transition-colors font-body-md text-body-md flex items-center gap-1.5" type="button">
+<span>Discard / Cancel</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[17px] text-outline">print</span>
+<span>Print Scrap Tag (3x)</span>
+</button>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high border border-outline-variant/40 text-outline hover:text-on-surface transition-colors font-body-md text-body-md" type="button">
+              Save Draft
+            </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container hover:bg-primary-fixed text-on-primary-container font-headline-sm text-[13px] font-semibold tracking-tight transition-all flex items-center gap-2 shadow-sm" id="btnValidateAdjustment" type="button">
+<span>Validate Adjustment</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regulatory & Operational Enforcement Notice -->
+<div class="p-space-md rounded-lg bg-surface-container-low border border-outline-variant/20 flex items-center justify-between text-outline font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-outline text-[18px]">gavel</span>
+<span>Dual-Sign Off Enforced: Value delta &gt; $100 requires Shift Supervisor key verification upon validation.</span>
+</div>
+<div class="hidden md:flex items-center gap-space-sm text-on-surface-variant font-code-sm">
+<span>Supervisor:</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-primary font-medium">M. Vance (WH-01)</span>
+</div>
+</div>
+</div>
+<!-- Secondary Telemetry & Context Rail (4 Cols) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<!-- Visual Shelf Bay Diagram Card -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/30 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Physical Bay Matrix</span>
+<span class="font-code-sm text-code-sm text-primary font-medium">Rack 04 - Shelf 02</span>
+</div>
+<!-- Inline Visual Bay Map SVG -->
+<div class="relative w-full rounded-lg bg-surface-container-lowest p-space-md border border-outline-variant/20">
+<div class="flex justify-between items-center text-outline font-code-sm text-[10px] mb-2">
+<span>BAY ELEVATION (AISLE A)</span>
+<span class="text-secondary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>OCCUPIED</span>
+</div>
+<svg class="w-full h-36" fill="none" viewbox="0 0 320 140" xmlns="http://www.w3.org/2000/svg">
+<!-- Shelf Structure Framework -->
+<rect height="120" rx="4" stroke="#3c494c" stroke-dasharray="4 2" stroke-width="1.5" width="300" x="10" y="10"></rect>
+<line stroke="#3c494c" stroke-width="1.5" x1="10" x2="310" y1="50" y2="50"></line>
+<line stroke="#3c494c" stroke-width="1.5" x1="10" x2="310" y1="90" y2="90"></line>
+<line stroke="#3c494c" stroke-width="1" x1="110" x2="110" y1="10" y2="130"></line>
+<line stroke="#3c494c" stroke-width="1" x1="210" x2="210" y1="10" y2="130"></line>
+<!-- Inactive Bins -->
+<rect fill="#201f20" height="28" rx="2" width="88" x="16" y="16"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="60" y="34">BIN A01</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="116" y="16"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="160" y="34">BIN A02</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="216" y="16"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="260" y="34">BIN A03</text>
+<!-- Target Shelf Active Bin: SEC-04-A1 -->
+<rect fill="#22d3ee" fill-opacity="0.15" height="28" rx="2" stroke="#22d3ee" stroke-width="1.5" width="88" x="16" y="56"></rect>
+<text fill="#22d3ee" font-family="JetBrains Mono" font-size="10" font-weight="600" text-anchor="middle" x="60" y="73">SEC-04-A1</text>
+<text fill="#8aebff" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="60" y="81">31/34 PCS</text>
+<!-- Other Bins -->
+<rect fill="#201f20" height="28" rx="2" width="88" x="116" y="56"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="160" y="74">SEC-04-A2</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="216" y="56"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="260" y="74">SEC-04-A3</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="16" y="96"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="60" y="114">BIN A07</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="116" y="96"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="160" y="114">BIN A08</text>
+<rect fill="#201f20" height="28" rx="2" width="88" x="216" y="96"></rect>
+<text fill="#859397" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="260" y="114">BIN A09</text>
+</svg>
+<div class="mt-2 pt-2 border-t border-outline-variant/20 flex items-center justify-between font-code-sm text-[11px] text-outline">
+<span>Height: 1.4m • Level 2</span>
+<span class="text-on-surface">Next Audit: 12 days</span>
+</div>
+</div>
+</div>
+<!-- Recent SKU Adjustments History (Context for Auditors) -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/30 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Adjustment Ledger Log</span>
+<span class="font-code-sm text-code-sm text-outline">SKU-5520-E</span>
+</div>
+<div class="flex flex-col divide-y divide-outline-variant/20">
+<div class="py-2.5 flex items-center justify-between text-body-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-medium">ADJ-00291 (Shrinkage)</span>
+<span class="font-code-sm text-[11px] text-outline">Sep 28, 2024 • J. Miller</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm text-error font-medium">-1 pc</span>
+<div class="font-code-sm text-[11px] text-outline">Bal: 35</div>
+</div>
+</div>
+<div class="py-2.5 flex items-center justify-between text-body-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-medium">ADJ-00188 (Found Staging)</span>
+<span class="font-code-sm text-[11px] text-outline">Aug 12, 2024 • M. Vance</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm text-secondary font-medium">+4 pcs</span>
+<div class="font-code-sm text-[11px] text-outline">Bal: 36</div>
+</div>
+</div>
+<div class="py-2.5 flex items-center justify-between text-body-sm">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface font-medium">ADJ-00104 (Damaged In-Transit)</span>
+<span class="font-code-sm text-[11px] text-outline">Jun 03, 2024 • R. Torres</span>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm text-error font-medium">-2 pcs</span>
+<div class="font-code-sm text-[11px] text-outline">Bal: 32</div>
+</div>
+</div>
+</div>
+<button class="w-full py-1.5 rounded bg-surface-container border border-outline-variant/30 text-outline hover:text-on-surface text-center font-code-sm text-code-sm transition-colors">
+          View Complete 12-Month Audit Ledger
+        </button>
+</div>
+<!-- Scrapped Item Photo Documentation Card -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/30 p-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Physical Proof Inspection</span>
+<span class="font-code-sm text-code-sm text-secondary">QC-Passed Evidence</span>
+</div>
+<div class="relative rounded-lg overflow-hidden border border-outline-variant/30 bg-surface-container-lowest h-36">
+<img class="w-full h-full object-cover opacity-85 hover:opacity-100 transition-opacity" data-alt="Close up high-definition industrial photograph of three damaged metallic NEMA 17 stepper motors resting on an anti-static black workbench with hairline casing cracks and fractured wiring under cold fluorescent warehouse lighting with cyan telemetry markers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeNXseCkgJv-4M-xNGDLEbF2zPUwS86fFuDsUNet9C-oPcxavyD2TlC59w87xQ4ErzkNtsjsi1aAXZl0vN02lHpFk7jnWnEWpHVULGnrTauBUB-zDl6sZja1Db-6LKDC1TKsnmqVPAu4Z0XVN09ozrZI-rTABhtcWYrnz28GeFfNK8WgjYQQybUF2jqzD5b-jllzo_vHm-neJDQHn9CH2OmXyUMNUQyP2cwb7YP-AlSens3k27z5TlbQ"/>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 border border-outline-variant/40 font-code-sm text-[10px] text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-error">broken_image</span>
+<span>Motor Casing Impact Damage</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-1">
+          Attached directly to QC Ticket #9921 from Rugged Terminal RF-08.
+        </p>
+</div>
+</div>
+</div>
+<!-- Keyboard Operational Footer Shortcut Ribbon -->
+<div class="mt-space-xl pt-space-md border-t border-outline-variant/20 flex flex-wrap items-center justify-between gap-space-md text-outline font-code-sm text-code-sm">
+<div class="flex flex-wrap items-center gap-space-lg">
+<div class="flex items-center gap-1.5">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-code-sm text-[10px]">Enter</kbd>
+<span>Validate &amp; Commit</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-code-sm text-[10px]">Esc</kbd>
+<span>Discard Draft</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-code-sm text-[10px]">Tab</kbd>
+<span>Next Coordinate</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-code-sm text-[10px]">Ctrl+P</kbd>
+<span>Print Physical Scrap Label</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="text-outline-variant">•</span>
+<span class="text-on-surface-variant font-medium">StockSense Telemetry Active</span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary">Synced with Austin Central ERP</span>
+</div>
+</div>
+<!-- Client-side Interactive Reconciliation Logic -->
+<script>
+    (function initStockReconciliation() {
+      const input = document.getElementById('countedQtyInput');
+      const btnInc = document.getElementById('btnIncrement');
+      const btnDec = document.getElementById('btnDecrement');
+      const deltaCard = document.getElementById('deltaCard');
+      const deltaValue = document.getElementById('deltaValue');
+      const deltaIcon = document.getElementById('deltaIcon');
+      const deltaBadge = document.getElementById('deltaBadge');
+      const deltaStatusText = document.getElementById('deltaStatusText');
+      const btnSurplus = document.getElementById('btnSimulateSurplus');
+      const btnDeficit = document.getElementById('btnResetDeficit');
+
+      const RECORDED_QTY = 34;
+      const UNIT_COST = 34.00;
+
+      function updateDelta(physicalCount) {
+        const delta = physicalCount - RECORDED_QTY;
+        const bookDiff = delta * UNIT_COST;
+        const pctDiff = ((delta / RECORDED_QTY) * 100).toFixed(1);
+
+        if (delta < 0) {
+          // Negative / Deficit / Loss
+          deltaCard.className = "p-space-md rounded-lg bg-[#2a1515] border border-[#7f1d1d] flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all";
+          deltaValue.className = "font-code-lg text-code-lg text-[#F87171] font-bold tracking-tight";
+          deltaValue.textContent = `Δ ${delta} pcs`;
+          deltaIcon.className = "material-symbols-outlined text-[#F87171] text-[22px]";
+          deltaIcon.textContent = "trending_down";
+          deltaBadge.className = "font-code-sm text-code-sm px-2 py-0.5 rounded bg-[#451a1a] text-[#F87171] border border-[#991b1b] font-medium";
+          deltaBadge.textContent = "Discrepancy Detected — Ledger Write-Down";
+          deltaStatusText.className = "font-body-sm text-body-sm text-[#ffaba8] mt-0.5";
+          deltaStatusText.innerHTML = `Variance: <span class="font-code-sm font-semibold">${pctDiff}% Deficit</span> • Book Loss: <span class="font-code-sm font-semibold">-$${Math.abs(bookDiff).toFixed(2)}</span> at standard carrying cost.`;
+        } else if (delta > 0) {
+          // Positive / Surplus / Gain
+          deltaCard.className = "p-space-md rounded-lg bg-[#0f291e] border border-[#166534] flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all";
+          deltaValue.className = "font-code-lg text-code-lg text-[#34D399] font-bold tracking-tight";
+          deltaValue.textContent = `Δ +${delta} pcs`;
+          deltaIcon.className = "material-symbols-outlined text-[#34D399] text-[22px]";
+          deltaIcon.textContent = "trending_up";
+          deltaBadge.className = "font-code-sm text-code-sm px-2 py-0.5 rounded bg-[#14532d] text-[#34D399] border border-[#15803d] font-medium";
+          deltaBadge.textContent = "Positive Stock Surplus — Write-In Required";
+          deltaStatusText.className = "font-body-sm text-body-sm text-[#a7f3d0] mt-0.5";
+          deltaStatusText.innerHTML = `Variance: <span class="font-code-sm font-semibold">+${pctDiff}% Surplus</span> • Book Gain: <span class="font-code-sm font-semibold">+$${bookDiff.toFixed(2)}</span> recognized to inventory reserve.`;
+        } else {
+          // Zero Discrepancy
+          deltaCard.className = "p-space-md rounded-lg bg-surface-container border border-outline-variant/40 flex flex-col md:flex-row md:items-center justify-between gap-space-md transition-all";
+          deltaValue.className = "font-code-lg text-code-lg text-secondary font-bold tracking-tight";
+          deltaValue.textContent = "Δ 0 pcs";
+          deltaIcon.className = "material-symbols-outlined text-secondary text-[22px]";
+          deltaIcon.textContent = "check_circle";
+          deltaBadge.className = "font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container-high text-secondary font-medium";
+          deltaBadge.textContent = "Count Matches System Ledger Perfectly";
+          deltaStatusText.className = "font-body-sm text-body-sm text-outline mt-0.5";
+          deltaStatusText.innerHTML = "No book adjustment necessary. Counts verified aligned.";
+        }
+      }
+
+      if (input) {
+        input.addEventListener('input', (e) => {
+          let val = parseInt(e.target.value, 10);
+          if (isNaN(val)) val = 0;
+          updateDelta(val);
+        });
+
+        if (btnInc) {
+          btnInc.addEventListener('click', () => {
+            let val = parseInt(input.value, 10) || 0;
+            input.value = val + 1;
+            updateDelta(val + 1);
+          });
+        }
+
+        if (btnDec) {
+          btnDec.addEventListener('click', () => {
+            let val = parseInt(input.value, 10) || 0;
+            if (val > 0) {
+              input.value = val - 1;
+              updateDelta(val - 1);
+            }
+          });
+        }
+
+        if (btnSurplus) {
+          btnSurplus.addEventListener('click', () => {
+            input.value = 36;
+            updateDelta(36);
+          });
+        }
+
+        if (btnDeficit) {
+          btnDeficit.addEventListener('click', () => {
+            input.value = 31;
+            updateDelta(31);
+          });
+        }
+      }
+
+      const validateBtn = document.getElementById('btnValidateAdjustment');
+      if (validateBtn) {
+        validateBtn.addEventListener('click', () => {
+          const originalText = validateBtn.innerHTML;
+          validateBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span><span>Committing 0x8f2a...</span>`;
+          validateBtn.disabled = true;
+          setTimeout(() => {
+            validateBtn.className = "px-space-lg py-2 rounded-lg bg-secondary text-on-secondary font-headline-sm text-[13px] font-semibold tracking-tight transition-all flex items-center gap-2 shadow-sm";
+            validateBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">verified</span><span>Adjustment Committed #ADJ-00384</span>`;
+          }, 800);
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>
