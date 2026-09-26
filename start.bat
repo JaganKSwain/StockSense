@@ -23,11 +23,8 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: 3. Kill any lingering process holding port 3000
-for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING 2^>nul') do (
-    echo [*] Freeing port 3000 (Closing previous instance PID %%a)...
-    taskkill /F /PID %%a >nul 2>nul
-)
+:: 3. Free port 3000 if previously occupied
+powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }" >nul 2>nul
 
 :: 4. Check node_modules
 if not exist "node_modules\" (
