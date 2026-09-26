@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: 'Real-time stock ledger with predictive alerts replacing manual registers, Excel, and WhatsApp workflows for SMB warehouses.',
 };
 
+import { AuthProvider } from '@/hooks/use-auth';
+
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[#0A0A0B] text-[#FAFAFA] font-sans antialiased">
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Toaster
           position="top-right"
           theme="dark"

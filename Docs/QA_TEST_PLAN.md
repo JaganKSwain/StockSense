@@ -3,7 +3,7 @@
 > **Version:** 2.4-RELEASE  
 > **Target System:** Next.js 14 (App Router) + Supabase PostgreSQL 15 + Realtime CDC Engine  
 > **Automation Suite:** `npm run test:qa` (or double-click `run_qa_tests.bat`)  
-> **Automated Pass Rate:** **100.0% (46 / 46 Test Assertions Passed)**
+> **Automated Pass Rate:** **100.0% (56 / 56 Test Assertions Passed)**
 
 ---
 
@@ -130,16 +130,29 @@ StockSense is an enterprise-grade real-time inventory management system designed
 
 ### 2.8 Screen 7: Master Audit Ledger (`/ledger`)
 
-| Button / Element | Input / Event | Expected System Response | Supabase Capture |
-| :--- | :--- | :--- | :--- |
-| **Filter Tab: All** | Click tab | Displays all historical movements without type filter | `SELECT * FROM stock_moves` |
-| **Filter Tab: Receipts** | Click tab | Filters view exclusively to `receipt` inbound moves | Filter: `doc_type = 'receipt'` |
-| **Filter Tab: Deliveries** | Click tab | Filters view exclusively to `delivery` outbound moves | Filter: `doc_type = 'delivery'` |
-| **Filter Tab: Transfers** | Click tab | Filters view exclusively to `transfer` internal moves | Filter: `doc_type = 'transfer'` |
-| **Filter Tab: Adjustments** | Click tab | Filters view exclusively to `adjustment` cycle counts | Filter: `doc_type = 'adjustment'` |
-| **Search Input** | Enter SKU or reference | Instantly filters matching table records | Substring search |
-| **Button: Export CSV** | Click button | Generates and downloads `stocksense_ledger_[timestamp].csv` file | Client-side CSV blob download |
-| **Live CDC Highlight** | Incoming move via WebSocket | Newly inserted row flashes with border highlight for 3 seconds | WebSocket event handler |
+| UI Component | Interaction / Trigger | Expected Frontend Response | Database / Backend Action | QA Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Filter Tab: All** | Click tab | Displays all historical movements without type filter | `SELECT * FROM stock_moves` | **PASS** |
+| **Filter Tab: Receipts** | Click tab | Filters view exclusively to `receipt` inbound moves | Filter: `doc_type = 'receipt'` | **PASS** |
+| **Filter Tab: Deliveries** | Click tab | Filters view exclusively to `delivery` outbound moves | Filter: `doc_type = 'delivery'` | **PASS** |
+| **Filter Tab: Transfers** | Click tab | Filters view exclusively to `transfer` internal moves | Filter: `doc_type = 'transfer'` | **PASS** |
+| **Filter Tab: Adjustments** | Click tab | Filters view exclusively to `adjustment` cycle counts | Filter: `doc_type = 'adjustment'` | **PASS** |
+| **Search Input** | Enter SKU or reference | Instantly filters matching table records | Substring search | **PASS** |
+| **Button: Export CSV** | Click button | Generates and downloads `stocksense_ledger_[timestamp].csv` file | Client-side CSV blob download | **PASS** |
+| **Live CDC Highlight** | Incoming move via WebSocket | Newly inserted row flashes with border highlight for 3 seconds | WebSocket event handler | **PASS** |
+
+---
+
+### 2.9 Screen 8: Operator Authentication & Ingress Portal (`/login`)
+
+| UI Component | Interaction / Trigger | Expected Frontend Response | Database / Backend Action | QA Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Demo Credential Chips** | Click `Supervisor`, `Operator`, or `Auditor` chip | Instantly populates credentials, role clearance badge, and terminal ID | Local profile fast-fill | **PASS** |
+| **Sign In Tab: Identifier & PIN**| Enter email/badge + PIN and submit | Shows authenticating spinner, receives signed JWT, redirects to `/dashboard` | `POST /api/auth/login` sets `stocksense_jwt` cookie | **PASS** |
+| **Request Access Tab** | Enter name, badge ID, email, supervisor, role, and PIN | Grants terminal clearance, issues JWT session, redirects to `/dashboard` | `POST /api/auth/signup` + registers in Supabase Auth | **PASS** |
+| **Barcode Scanner Simulation**| Click `Scan Barcode` | Simulates optical badge scan, auto-fills Senior Operator badge `OP-88219` | Client hardware handler | **PASS** |
+| **NFC Tap Simulation** | Click `Tap NFC Badge` | Simulates NFC reader terminal, auto-fills and validates badge credentials | Client hardware handler | **PASS** |
+| **Topbar Sign Out** | Click `Sign Out` icon button in Topbar | Clears JWT session & cookies, resets operator context, redirects to `/login` | `AuthProvider.logout()` | **PASS** |
 
 ---
 
@@ -205,13 +218,25 @@ Automated execution via `scripts/qa-test-suite.mjs` against live running Next.js
 
 ▶ [SECTION 8] Operational Dashboard KPIs Endpoint
   ✅ PASS: GET /api/dashboard/kpis returns 200 OK 
-  ✅ PASS: KPI: totalProducts is valid number (6 total SKUs)
-  ✅ PASS: KPI: lowStockCount is valid number (1 items at/below threshold)
+  ✅ PASS: KPI: totalProducts is valid number (7 total SKUs)
+  ✅ PASS: KPI: lowStockCount is valid number (2 items at/below threshold)
   ✅ PASS: KPI: pendingReceipts count present (0)
   ✅ PASS: KPI: pendingDeliveries count present (0)
   ✅ PASS: KPI: scheduledTransfers count present (0)
 
-▶ [SECTION 9] Automated Test Artifacts Teardown
+▶ [SECTION 9] Operator Authentication & JWT Token Verification
+  ✅ PASS: POST /api/auth/login: Supervisor credentials accepted (200 OK)
+  ✅ PASS: JWT Token generated with 3-part cryptographic signature (Token prefix: eyJhbGciOiJIUzI...)
+  ✅ PASS: Role claim verified: supervisor (Priya Sharma (Supervisor))
+  ✅ PASS: Badge clearance verified: SUP-01
+  ✅ PASS: POST /api/auth/login: Physical Badge Code accepted (200 OK)
+  ✅ PASS: Role claim verified: operator (Marcus Vance (Operator))
+  ✅ PASS: POST /api/auth/login: Rejects invalid credentials with 401 Unauthorized
+  ✅ PASS: POST /api/auth/signup: New operator registration succeeds (201 Created)
+  ✅ PASS: Signup issues valid authenticated JWT token
+  ✅ PASS: New operator profile correctly initialized
+
+▶ [SECTION 10] Automated Test Artifacts Teardown
   ✅ PASS: Teardown: Cleaned up test stock_moves 
   ✅ PASS: Teardown: Cleaned up test stock_levels 
   ✅ PASS: Teardown: Cleaned up test product record 
@@ -219,8 +244,8 @@ Automated execution via `scripts/qa-test-suite.mjs` against live running Next.js
 ================================================================
                        QA TEST RUN COMPLETE                     
 ================================================================
-  Total Tests Run : 46
-  Passed          : 46
+  Total Tests Run : 56
+  Passed          : 56
   Failed          : 0
   Pass Rate       : 100.0%
 ================================================================

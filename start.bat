@@ -40,6 +40,7 @@ if not exist ".env.local" (
 echo.
 echo ==============================================================================
 echo  Server URL : http://localhost:3000
+echo  Portal/Auth: http://localhost:3000/login
 echo  Dashboard  : http://localhost:3000/dashboard
 echo  Ledger     : http://localhost:3000/ledger
 echo  Receipts   : http://localhost:3000/receipts/new

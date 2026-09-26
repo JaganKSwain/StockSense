@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: 'dashboard' },
@@ -17,6 +18,7 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-[#0e0e0f] border-r border-[#3c494c]/30 z-50 flex flex-col justify-between select-none">
@@ -88,29 +90,31 @@ export function Sidebar() {
 
       {/* User / Profile Footer */}
       <div className="p-3 border-t border-[#3c494c]/20 bg-[#1c1b1c]">
-        <div className="flex items-center justify-between p-2 rounded-lg bg-[#201f20] hover:bg-[#2a2a2b] transition-colors cursor-pointer">
+        <Link
+          href="/login"
+          title="Switch Operator Profile / Ingress Portal"
+          className="flex items-center justify-between p-2 rounded-lg bg-[#201f20] hover:bg-[#2a2a2b] transition-colors cursor-pointer"
+        >
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="relative shrink-0">
-              <div className="w-7 h-7 rounded-full bg-[#22d3ee] flex items-center justify-center">
-                <span className="material-symbols-outlined text-[#00363e] text-[16px]">
-                  person
-                </span>
+              <div className="w-7 h-7 rounded-full bg-[#22d3ee] flex items-center justify-center font-bold text-xs text-[#00363e]">
+                {user?.name ? user.name.slice(0, 2).toUpperCase() : 'OP'}
               </div>
               <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#45dfa4] ring-2 ring-[#1c1b1c]"></span>
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-[12px] text-[#e5e2e3] truncate font-medium">
-                Priya Sharma
+                {user?.name || 'Priya Sharma'}
               </div>
-              <div className="font-mono text-[11px] text-[#859397] truncate">
-                WH-01 • Central Hub
+              <div className="font-mono text-[10px] text-[#22d3ee] truncate">
+                {user?.role || 'Supervisor'} • {user?.badgeId || 'SUP-01'}
               </div>
             </div>
           </div>
           <span className="material-symbols-outlined text-[#859397] text-[16px]">
-            unfold_more
+            switch_account
           </span>
-        </div>
+        </Link>
       </div>
     </aside>
   );

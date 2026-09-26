@@ -339,8 +339,69 @@ async function runTestSuite() {
   assert(typeof kpiData.pendingDeliveries === 'number', 'KPI: pendingDeliveries count present', `${kpiData.pendingDeliveries}`);
   assert(typeof kpiData.scheduledTransfers === 'number', 'KPI: scheduledTransfers count present', `${kpiData.scheduledTransfers}`);
 
-  // --- SECTION 9: Database Cleanup ---
-  console.log('\n▶ [SECTION 9] Automated Test Artifacts Teardown');
+  // --- SECTION 9: JWT Authentication & Role Authorization ---
+  console.log('\n▶ [SECTION 9] Operator Authentication & JWT Token Verification');
+  
+  // 9.1 Supervisor Login
+  const supLoginRes = await fetch(`${API_BASE}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      identifier: 'supervisor@stocksense.io',
+      password: 'StockSense2026!',
+    }),
+  });
+  const supLoginData = await supLoginRes.json();
+  assert(supLoginRes.status === 200, 'POST /api/auth/login: Supervisor credentials accepted (200 OK)');
+  assert(!!supLoginData.token && supLoginData.token.split('.').length === 3, 'JWT Token generated with 3-part cryptographic signature', `Token prefix: ${supLoginData.token?.slice(0, 15)}...`);
+  assert(supLoginData.user?.role?.toLowerCase() === 'supervisor', 'Role claim verified: supervisor', `${supLoginData.user?.name} (${supLoginData.user?.role})`);
+  assert(supLoginData.user?.badgeId === 'SUP-01', 'Badge clearance verified: SUP-01');
+
+  // 9.2 Badge Login
+  const badgeLoginRes = await fetch(`${API_BASE}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      identifier: 'OP-88219',
+      password: 'StockSense2026!',
+    }),
+  });
+  const badgeLoginData = await badgeLoginRes.json();
+  assert(badgeLoginRes.status === 200, 'POST /api/auth/login: Physical Badge Code accepted (200 OK)');
+  assert(badgeLoginData.user?.role?.toLowerCase() === 'operator', 'Role claim verified: operator', `${badgeLoginData.user?.name} (${badgeLoginData.user?.role})`);
+
+  // 9.3 Invalid Credentials Rejection
+  const badLoginRes = await fetch(`${API_BASE}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      identifier: 'supervisor@stocksense.io',
+      password: 'WrongPassword999!',
+    }),
+  });
+  assert(badLoginRes.status === 401, 'POST /api/auth/login: Rejects invalid credentials with 401 Unauthorized');
+
+  // 9.4 Operator Signup & Ingress Provisioning
+  const testOperatorEmail = `qa.op.${Date.now()}@stocksense.io`;
+  const signupRes = await fetch(`${API_BASE}/api/auth/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: 'QA Test Field Operator',
+      email: testOperatorEmail,
+      badgeId: 'OP-QA99',
+      role: 'Operator',
+      warehouseName: 'Austin Central WH-01',
+      password: 'StockSense2026!',
+    }),
+  });
+  const signupData = await signupRes.json();
+  assert([200, 201].includes(signupRes.status), 'POST /api/auth/signup: New operator registration succeeds (201 Created)');
+  assert(!!signupData.token, 'Signup issues valid authenticated JWT token');
+  assert(signupData.user?.email === testOperatorEmail, 'New operator profile correctly initialized');
+
+  // --- SECTION 10: Database Cleanup ---
+  console.log('\n▶ [SECTION 10] Automated Test Artifacts Teardown');
   // Clean up test moves
   const { error: delMovesErr } = await sb
     .from('stock_moves')

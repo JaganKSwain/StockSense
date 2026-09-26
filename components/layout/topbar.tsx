@@ -3,12 +3,16 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { useAuth } from '@/hooks/use-auth';
+
 interface TopbarProps {
   breadcrumbs?: { label: string; href?: string }[];
   action?: React.ReactNode;
 }
 
 export function Topbar({ breadcrumbs, action }: TopbarProps) {
+  const { user, logout } = useAuth();
+
   return (
     <header className="fixed top-0 left-64 right-0 h-14 bg-[#0e0e0f]/90 backdrop-blur-md border-b border-[#3c494c]/30 z-40 flex items-center justify-between px-6">
       {/* Left: Breadcrumbs & Live Pulse */}
@@ -16,7 +20,7 @@ export function Topbar({ breadcrumbs, action }: TopbarProps) {
         <div className="flex items-center gap-2 text-[12px]">
           <span className="text-[#859397]">Warehouses</span>
           <span className="text-[#3c494c]">/</span>
-          <span className="text-[#e5e2e3] font-semibold">Central Warehouse (WH-01)</span>
+          <span className="text-[#e5e2e3] font-semibold">{user?.warehouseName || 'Central Warehouse (WH-01)'}</span>
           {breadcrumbs &&
             breadcrumbs.map((b, i) => (
               <React.Fragment key={i}>
@@ -56,8 +60,30 @@ export function Topbar({ breadcrumbs, action }: TopbarProps) {
           </kbd>
         </div>
 
-        <div className="w-8 h-8 rounded-full bg-[#22d3ee] flex items-center justify-center text-[#00363e]">
-          <span className="material-symbols-outlined text-[18px]">person</span>
+        {/* User Identity Pill with Role Badge & Logout */}
+        <div className="flex items-center gap-2 pl-2 border-l border-[#3c494c]/30">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-[#22d3ee] flex items-center justify-center text-[#00363e] font-semibold text-xs shadow-sm">
+              {user?.name ? user.name.slice(0, 2).toUpperCase() : 'OP'}
+            </div>
+            <div className="hidden lg:flex flex-col text-left">
+              <span className="text-xs font-medium text-white leading-none">
+                {user?.name || 'Operator'}
+              </span>
+              <span className="font-mono text-[10px] text-[#22d3ee] mt-0.5">
+                {user?.role || 'Operator'} • {user?.badgeId || 'OP-01'}
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={logout}
+            title="Sign Out of Ingress Terminal"
+            className="p-1.5 rounded-lg hover:bg-[#201f20] text-[#859397] hover:text-[#ffb4ab] transition-colors ml-1"
+          >
+            <span className="material-symbols-outlined text-[18px]">logout</span>
+          </button>
         </div>
       </div>
     </header>
