@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 import type { Product, Location, StockLevel } from '@/lib/types';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useRealtimeChannel } from '@/hooks/use-realtime-channel';
 
 export default function NewDeliveryPage() {
   const router = useRouter();
@@ -20,33 +21,46 @@ export default function NewDeliveryPage() {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const supabase = createClient();
-        const { data: pData } = await supabase.from('products').select('*').order('name');
-        const { data: lData } = await supabase.from('locations').select('*').order('name');
-        const { data: slData } = await supabase.from('stock_levels').select('*');
+  const loadData = React.useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const { data: pData } = await supabase.from('products').select('*').order('name');
+      const { data: lData } = await supabase.from('locations').select('*').order('name');
+      const { data: slData } = await supabase.from('stock_levels').select('*');
 
-        if (pData && pData.length > 0) {
-          setProducts(pData as any);
-          setSelectedProductId(pData[0].id);
-        }
-        if (lData && lData.length > 0) {
-          setLocations(lData as any);
-          setSelectedLocationId(lData[0].id);
-        }
-        if (slData) {
-          setLevels(slData as any);
-        }
-      } catch (err) {
-        console.error('Error loading delivery dependencies:', err);
-      } finally {
-        setLoading(false);
+      if (pData && pData.length > 0) {
+        const normalized = pData.map((p: any) => ({
+          ...p,
+          lowStockThreshold: Number(p.low_stock_threshold ?? p.lowStockThreshold ?? 10),
+        }));
+        setProducts(normalized);
+        setSelectedProductId((prev) => prev || normalized[0].id);
       }
+      if (lData && lData.length > 0) {
+        setLocations(lData as any);
+        setSelectedLocationId((prev) => prev || lData[0].id);
+      }
+      if (slData) {
+        const normalizedLevels = slData.map((l: any) => ({
+          productId: l.product_id || l.productId,
+          locationId: l.location_id || l.locationId,
+          quantity: Number(l.quantity),
+        }));
+        setLevels(normalizedLevels);
+      }
+    } catch (err) {
+      console.error('Error loading delivery dependencies:', err);
+    } finally {
+      setLoading(false);
     }
-    loadData();
   }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  // Re-fetch automatically when inventory changes in real-time
+  useRealtimeChannel('stock_levels', loadData);
 
   const selectedProduct = products.find((p) => p.id === selectedProductId);
 

@@ -15,12 +15,20 @@ export function RecentActivity() {
       const supabase = createClient();
       const { data, error } = await supabase
         .from('stock_moves')
-        .select('*, product:products(*), fromLocation:locations!stock_moves_from_location_id_fkey(*), toLocation:locations!stock_moves_to_location_id_fkey(*)')
+        .select('*, product:products(*), fromLocation:locations!from_location_id(*), toLocation:locations!to_location_id(*)')
         .order('created_at', { ascending: false })
         .limit(6);
 
       if (!error && data) {
-        setMoves(data as any);
+        const normalized = data.map((m: any) => ({
+          ...m,
+          docType: m.doc_type || m.docType,
+          createdAt: m.created_at || m.createdAt,
+          fromLocationId: m.from_location_id || m.fromLocationId,
+          toLocationId: m.to_location_id || m.toLocationId,
+          productId: m.product_id || m.productId,
+        }));
+        setMoves(normalized);
       }
     } catch (err) {
       console.warn('Failed to load recent moves:', err);

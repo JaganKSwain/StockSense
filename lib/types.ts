@@ -4,12 +4,14 @@ export type MoveStatus = 'draft' | 'waiting' | 'ready' | 'done' | 'canceled';
 export interface Warehouse {
   id: string;
   name: string;
+  created_at?: string;
   createdAt?: string;
 }
 
 export interface Location {
   id: string;
-  warehouseId: string;
+  warehouse_id?: string;
+  warehouseId?: string;
   name: string;
 }
 
@@ -19,12 +21,16 @@ export interface Product {
   name: string;
   category: string | null;
   unit: string;
+  low_stock_threshold?: number;
   lowStockThreshold: number;
+  created_at?: string;
   createdAt?: string;
 }
 
 export interface StockLevel {
+  product_id?: string;
   productId: string;
+  location_id?: string;
   locationId: string;
   quantity: number;
   product?: Product;
@@ -33,13 +39,18 @@ export interface StockLevel {
 
 export interface StockMove {
   id: string;
+  doc_type?: DocType;
   docType: DocType;
   status: MoveStatus;
+  product_id?: string;
   productId: string;
-  fromLocationId: string | null;
-  toLocationId: string | null;
+  from_location_id?: string | null;
+  fromLocationId?: string | null;
+  to_location_id?: string | null;
+  toLocationId?: string | null;
   quantity: number;
   reference: string | null;
+  created_at?: string;
   createdAt: string;
   product?: Product;
   fromLocation?: Location;

@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client';
 import type { Product, Location, StockLevel } from '@/lib/types';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useRealtimeChannel } from '@/hooks/use-realtime-channel';
 
 export default function NewTransferPage() {
   const router = useRouter();
@@ -21,37 +22,45 @@ export default function NewTransferPage() {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const supabase = createClient();
-        const { data: pData } = await supabase.from('products').select('*').order('name');
-        const { data: lData } = await supabase.from('locations').select('*').order('name');
-        const { data: slData } = await supabase.from('stock_levels').select('*');
+  const loadData = React.useCallback(async () => {
+    try {
+      const supabase = createClient();
+      const { data: pData } = await supabase.from('products').select('*').order('name');
+      const { data: lData } = await supabase.from('locations').select('*').order('name');
+      const { data: slData } = await supabase.from('stock_levels').select('*');
 
-        if (pData && pData.length > 0) {
-          setProducts(pData as any);
-          setSelectedProductId(pData[0].id);
-        }
-        if (lData && lData.length >= 2) {
-          setLocations(lData as any);
-          setFromLocationId(lData[0].id);
-          setToLocationId(lData[1].id);
-        } else if (lData && lData.length === 1) {
-          setLocations(lData as any);
-          setFromLocationId(lData[0].id);
-        }
-        if (slData) {
-          setLevels(slData as any);
-        }
-      } catch (err) {
-        console.error('Error loading transfer dependencies:', err);
-      } finally {
-        setLoading(false);
+      if (pData && pData.length > 0) {
+        setProducts(pData as any);
+        setSelectedProductId((prev) => prev || pData[0].id);
       }
+      if (lData && lData.length >= 2) {
+        setLocations(lData as any);
+        setFromLocationId((prev) => prev || lData[0].id);
+        setToLocationId((prev) => prev || lData[1].id);
+      } else if (lData && lData.length === 1) {
+        setLocations(lData as any);
+        setFromLocationId((prev) => prev || lData[0].id);
+      }
+      if (slData) {
+        const normalizedLevels = slData.map((l: any) => ({
+          productId: l.product_id || l.productId,
+          locationId: l.location_id || l.locationId,
+          quantity: Number(l.quantity),
+        }));
+        setLevels(normalizedLevels);
+      }
+    } catch (err) {
+      console.error('Error loading transfer dependencies:', err);
+    } finally {
+      setLoading(false);
     }
-    loadData();
   }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  useRealtimeChannel('stock_levels', loadData);
 
   const selectedProduct = products.find((p) => p.id === selectedProductId);
 

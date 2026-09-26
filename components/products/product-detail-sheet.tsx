@@ -31,13 +31,29 @@ export function ProductDetailSheet({ product, isOpen, onClose }: ProductDetailSh
 
         const { data: moveData } = await supabase
           .from('stock_moves')
-          .select('*, fromLocation:locations!stock_moves_from_location_id_fkey(*), toLocation:locations!stock_moves_to_location_id_fkey(*)')
+          .select('*, fromLocation:locations!from_location_id(*), toLocation:locations!to_location_id(*)')
           .eq('product_id', product.id)
           .order('created_at', { ascending: false })
           .limit(10);
 
-        if (levelData) setLevels(levelData as any);
-        if (moveData) setMoves(moveData as any);
+        if (levelData) {
+          setLevels(levelData.map((lvl: any) => ({
+            ...lvl,
+            locationId: lvl.location_id || lvl.locationId,
+            productId: lvl.product_id || lvl.productId,
+            quantity: Number(lvl.quantity),
+          })));
+        }
+        if (moveData) {
+          setMoves(moveData.map((m: any) => ({
+            ...m,
+            docType: m.doc_type || m.docType,
+            createdAt: m.created_at || m.createdAt,
+            fromLocationId: m.from_location_id || m.fromLocationId,
+            toLocationId: m.to_location_id || m.toLocationId,
+            productId: m.product_id || m.productId,
+          })));
+        }
       } catch (err) {
         console.error('Error fetching product details:', err);
       } finally {
