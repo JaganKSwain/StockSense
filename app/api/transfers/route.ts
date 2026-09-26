@@ -52,7 +52,7 @@ export async function POST(req: Request) {
         quantity,
         reference: reference || 'Internal Transfer',
       })
-      .select('*, product:products(*), fromLocation:locations(*), toLocation:locations(*)')
+      .select('*, product:products(*), fromLocation:locations!from_location_id(*), toLocation:locations!to_location_id(*)')
       .single();
 
     if (error) {

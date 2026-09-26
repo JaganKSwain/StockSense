@@ -33,7 +33,7 @@ export async function POST(req: Request) {
         quantity,
         reference: reference || 'Receipt Entry',
       })
-      .select('*, product:products(*), toLocation:locations(*)')
+      .select('*, product:products(*), toLocation:locations!to_location_id(*)')
       .single();
 
     if (error) {

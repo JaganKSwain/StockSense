@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         quantity,
         reference: reference || 'Delivery Order',
       })
-      .select('*, product:products(*), fromLocation:locations(*)')
+      .select('*, product:products(*), fromLocation:locations!from_location_id(*)')
       .single();
 
     if (error) {
