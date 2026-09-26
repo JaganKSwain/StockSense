@@ -258,15 +258,6 @@ StockSense/
 └── run_qa_tests.bat           # One-click QA test suite runner
 ```
 
----
-
-## 🏆 Hackathon Demo Flow (3-Minute Script)
-
-1. **The Hook (0:00–0:30):** Open `/login`. Show the Stitch-designed Ingress Portal. Click the **Supervisor** chip, enter the terminal. Land on `/dashboard` showcasing live operational KPIs.
-2. **Inbound Receiving (0:30–1:00):** Navigate to `/receipts/new`. Receive 25 units of `RAW-STL-001`. Notice the immediate real-time update in the activity feed and stock counters.
-3. **Predictive Dispatch Warning (1:00–1:45):** Navigate to `/deliveries/new`. Select `RAW-STL-001` and enter a quantity that exceeds the safe buffer. Watch the **red predictive low-stock banner** calculate the remaining stock in real-time before validation.
-4. **Internal Transfer (1:45–2:15):** Move 5 units from `Main Store` to `Production Rack` via `/transfers/new`. Verify that total inventory remains invariant while per-location balances adjust instantly.
-5. **Cycle Count & Ledger (2:15–3:00):** Adjust a physical count in `/adjustments/new`. Show how the discrepancy is calculated and instantly inscribed into `/ledger` as an immutable audit record.
 
 ---
 
