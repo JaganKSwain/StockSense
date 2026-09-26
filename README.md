@@ -106,7 +106,13 @@ Hot-reloading enabled for active development:
 start.bat
 ```
 
-The launch scripts automatically free occupied ports, verify local dependencies, initialize configuration, and open `http://localhost:3000/dashboard` in your browser.
+#### Option C: Stop All Servers
+Terminates all running Node/Next.js servers and frees port 3000:
+```cmd
+stop_servers.bat
+```
+
+> **Automatic Process Teardown:** Both `start.bat` and `start_production.bat` feature built-in termination handlers. Whenever you stop the server (via `Ctrl+C` or closing the batch run), the script automatically executes a process tree kill (`taskkill /F /T`) to clean up port 3000 and prevent orphan Node.js worker processes.
 
 ---
 
@@ -253,8 +259,9 @@ StockSense/
 ├── supabase/
 │   ├── init_all.sql           # Complete schema, triggers, seed data
 │   └── enable_public_access.sql # Public RLS policies for hackathon demo
-├── start.bat                  # One-click dev launcher
-├── start_production.bat       # One-click high-performance production launcher
+├── start.bat                  # One-click dev launcher (auto-stops server on exit)
+├── start_production.bat       # One-click production launcher (auto-stops server on exit)
+├── stop_servers.bat           # Instant server termination & port 3000 release utility
 └── run_qa_tests.bat           # One-click QA test suite runner
 ```
 

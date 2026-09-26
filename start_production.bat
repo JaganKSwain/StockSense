@@ -47,8 +47,21 @@ echo.
 :: Launch browser in background after 3 seconds
 start "" cmd /c "timeout /t 3 /nobreak >nul & start http://localhost:3000/dashboard"
 
-:: Start Next.js production server
-call npm run start
+:: Start Next.js production server with Ctrl+C capture for termination cleanup
+call npm run start <nul
 
+:: ==============================================================================
+:: Server Termination Cleanup
+:: ==============================================================================
+echo.
+echo ==============================================================================
+echo [*] Terminating StockSense servers and freeing port 3000...
+echo ==============================================================================
+node scripts/free-port.mjs
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING 2^>nul') do (
+    taskkill /F /T /PID %%a >nul 2>&1
+)
+echo [*] All server processes stopped successfully. Port 3000 is clean.
+echo ==============================================================================
 echo.
 pause

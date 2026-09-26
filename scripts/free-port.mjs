@@ -1,5 +1,7 @@
 import { execSync } from 'child_process';
 
+let killedAny = false;
+
 try {
   const output = execSync('netstat -ano', { encoding: 'utf8' });
   const lines = output.split('\n');
@@ -8,15 +10,22 @@ try {
       const parts = line.trim().split(/\s+/);
       const pid = parts[parts.length - 1];
       if (pid && Number(pid) > 0 && Number(pid) !== process.pid) {
-        console.log(`[*] Freeing port 3000 (closing PID ${pid})...`);
+        console.log(`[*] Terminating server on port 3000 (Process Tree PID ${pid})...`);
         try {
-          process.kill(Number(pid), 'SIGKILL');
+          execSync(`taskkill /F /T /PID ${pid} >nul 2>&1`);
+          killedAny = true;
         } catch {
           try {
-            execSync(`taskkill /F /PID ${pid} >nul 2>&1`);
+            process.kill(Number(pid), 'SIGKILL');
+            killedAny = true;
           } catch {}
         }
       }
     }
   }
-} catch {}
+  if (killedAny) {
+    console.log('[OK] All servers on port 3000 terminated successfully.');
+  }
+} catch (e) {
+  // Silent catch
+}
