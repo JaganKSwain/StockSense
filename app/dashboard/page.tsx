@@ -1,12 +1,23 @@
 'use client';
 
-import React from 'react';
+import dynamic from 'next/dynamic';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Topbar } from '@/components/layout/topbar';
 import { useDashboardKpis } from '@/hooks/use-dashboard-kpis';
-import { MovementChart } from '@/components/dashboard/movement-chart';
 import { RecentActivity } from '@/components/dashboard/recent-activity';
 import Link from 'next/link';
+
+const MovementChart = dynamic(
+  () => import('@/components/dashboard/movement-chart').then((mod) => mod.MovementChart),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-56 flex items-center justify-center text-xs font-mono text-[#859397]">
+        Loading velocity chart...
+      </div>
+    ),
+  }
+);
 
 export default function DashboardPage() {
   const { kpis, highlightKey } = useDashboardKpis();

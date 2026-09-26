@@ -7,19 +7,20 @@ export async function GET() {
   try {
     const supabase = createAdminClient();
 
-    // 1. Fetch all products with thresholds
-    const { data: products, error: pError } = await supabase
-      .from('products')
-      .select('id, low_stock_threshold');
+    // Execute all 3 queries concurrently in parallel
+    const [
+      { data: products, error: pError },
+      { data: levels, error: lError },
+      { data: pendingMoves, error: mError }
+    ] = await Promise.all([
+      supabase.from('products').select('id, low_stock_threshold'),
+      supabase.from('stock_levels').select('product_id, quantity'),
+      supabase.from('stock_moves').select('doc_type, status').in('status', ['draft', 'waiting', 'ready']),
+    ]);
 
     if (pError) throw pError;
-
-    // 2. Fetch all stock levels
-    const { data: levels, error: lError } = await supabase
-      .from('stock_levels')
-      .select('product_id, quantity');
-
     if (lError) throw lError;
+    if (mError) throw mError;
 
     // Sum stock per product
     const stockMap: Record<string, number> = {};
@@ -34,14 +35,6 @@ export async function GET() {
         lowStockCount++;
       }
     }
-
-    // 3. Count pending documents
-    const { data: pendingMoves, error: mError } = await supabase
-      .from('stock_moves')
-      .select('doc_type, status')
-      .in('status', ['draft', 'waiting', 'ready']);
-
-    if (mError) throw mError;
 
     let pendingReceipts = 0;
     let pendingDeliveries = 0;
