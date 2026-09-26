@@ -2,6 +2,9 @@
 title StockSense — Reset Demo Dataset
 color 0E
 
+:: Ensure correct working directory
+cd /d "%~dp0"
+
 echo ==============================================================================
 echo                 StockSense - Reset Database to Pitch Baseline
 echo ==============================================================================

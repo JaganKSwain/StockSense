@@ -1,6 +1,10 @@
 @echo off
+setlocal enabledelayedexpansion
 title StockSense — Real-Time Warehouse Stock Ledger
 color 0B
+
+:: 1. Always ensure working directory is the script folder
+cd /d "%~dp0"
 
 echo ==============================================================================
 echo                      StockSense - ODOO x GCET Hackathon
@@ -8,7 +12,7 @@ echo                 Real-Time Stock Ledger with Predictive Alerts
 echo ==============================================================================
 echo.
 
-:: 1. Check Node.js
+:: 2. Check Node.js
 where node >nul 2>nul
 if %errorlevel% neq 0 (
     color 0C
@@ -19,7 +23,13 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: 2. Check node_modules
+:: 3. Kill any lingering process holding port 3000
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING 2^>nul') do (
+    echo [*] Freeing port 3000 (Closing previous instance PID %%a)...
+    taskkill /F /PID %%a >nul 2>nul
+)
+
+:: 4. Check node_modules
 if not exist "node_modules\" (
     echo [*] Installing project dependencies (first time setup)...
     call npm install
@@ -31,7 +41,7 @@ if not exist "node_modules\" (
     )
 )
 
-:: 3. Check .env.local
+:: 5. Check .env.local
 if not exist ".env.local" (
     if exist ".env.example" (
         echo [*] Creating .env.local from .env.example...
@@ -39,7 +49,6 @@ if not exist ".env.local" (
     )
 )
 
-echo [*] Starting Next.js development server...
 echo.
 echo ==============================================================================
 echo  Server URL : http://localhost:3000
@@ -51,12 +60,25 @@ echo  Transfers  : http://localhost:3000/transfers/new
 echo  Adjustments: http://localhost:3000/adjustments/new
 echo ==============================================================================
 echo.
-echo [*] Launching demo browser windows in 3 seconds...
+echo [*] Waiting for Next.js to start before launching browser...
 
-:: Open browser automatically
-start "" "http://localhost:3000/dashboard"
+:: Launch browser in background only after server responds on port 3000
+start /b powershell -NoProfile -Command ^
+  "for ($i=0; $i -lt 30; $i++) { ^
+     try { ^
+       $res = Invoke-WebRequest -Uri 'http://localhost:3000' -UseBasicParsing -TimeoutSec 1 -ErrorAction SilentlyContinue; ^
+       if ($res.StatusCode -eq 200) { break } ^
+     } catch {} ^
+     Start-Sleep -Seconds 1; ^
+   }; ^
+   Start-Process 'http://localhost:3000/dashboard'"
 
 :: Start Next.js development server
 call npm run dev
 
-pause
+if %errorlevel% neq 0 (
+    color 0C
+    echo.
+    echo [ERROR] Next.js server encountered an error and stopped.
+    pause
+)

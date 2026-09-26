@@ -2,6 +2,9 @@
 title StockSense — Dual-Window Live Demo Launcher
 color 0A
 
+:: Ensure correct working directory
+cd /d "%~dp0"
+
 echo ==============================================================================
 echo             Launching StockSense Dual-Window Live Judging Setup
 echo ==============================================================================

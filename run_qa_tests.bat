@@ -2,6 +2,9 @@
 title StockSense — Automated QA & Database Verification Suite
 color 0B
 
+:: Ensure correct working directory
+cd /d "%~dp0"
+
 echo ==============================================================================
 echo                      StockSense - ODOO x GCET Hackathon
 echo           Full System QA & Real-Time Supabase Verification Suite
