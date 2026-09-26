@@ -54,7 +54,7 @@ echo [*] Opening browser in 3 seconds...
 echo.
 
 :: Launch browser in background after 3 seconds
-start "" cmd /c "timeout /t 3 /nobreak >nul & start http://localhost:3000/dashboard"
+start "" cmd /c "timeout /t 3 /nobreak >nul & start http://localhost:3000/login"
 
 :: Start Next.js with Ctrl+C capture for termination cleanup
 call npm run dev <nul
